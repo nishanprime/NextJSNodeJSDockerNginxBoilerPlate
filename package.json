@@ -1,0 +1,10 @@
+{
+  "name": "cloudquish-scaffold",
+  "version": "1.0.2",
+  "bin": {
+    "cloudquish-scaffold": "./install.js"
+  },
+  "dependencies": {
+    "fs-extra": "^11.2.0"
+  }
+}
