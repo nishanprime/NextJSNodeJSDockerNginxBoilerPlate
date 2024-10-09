@@ -1,26 +1,46 @@
 import "reflect-metadata";
-import { DataSource } from "typeorm";
-import { readFileSync } from "fs";
-import { join } from "path";
-
+import { DataSource, DataSourceOptions } from "typeorm";
 // entity imports
-import Entities from "@entity";
+import Entities from "../entity"
+import { initilizeDefaultData } from "./initialdata"
 
-const ssl = {
-  rejectUnauthorized: true,
-  ca: readFileSync(join(__dirname, "certificate.crt")),
-};
-export const AppDataSource = new DataSource({
+
+export const dataSourceOptions: DataSourceOptions = {
   type: "postgres",
-  schema: "philly-assessments",
-  host: process.env.DB_HOST,
-  port: Number(process.env.DB_PORT),
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+  url: process.env.NODE_ENV === "development" ? process.env.CONNECTION_STRING_NEON_DEV: process.env.CONNECTION_STRING_NEON,
   synchronize: true,
   logging: false,
   entities: [...Object.values(Entities)],
-  migrations: [],
-  ssl: process.env.DB_SSLMODE === "true" ? ssl : false,
-});
+  extra: {
+    max: 10, // Maximum number of connections in the pool
+    idleTimeoutMillis: 30000, // Close idle connections after 30 seconds
+    connectionTimeoutMillis: 5000, // Return an error after 2 seconds if connection could not be established
+  },
+};
+export const AppDataSource = new DataSource(dataSourceOptions);
+
+
+
+const connectDatabase = async (retries = 5): Promise<DataSource | null> => {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const response = await AppDataSource.initialize();
+      await initilizeDefaultData();
+      console.log("Database connection established successfully.");
+      return response;
+    } catch (error: any) {
+      console.error(
+        `Attempt ${i + 1} - Error in database connection: ${error.message}`
+      );
+      if (i < retries - 1) {
+        console.log("Retrying connection...");
+        await new Promise((res) => setTimeout(res, 5000)); // Wait for 5 seconds before retrying
+      } else {
+        console.error("All connection attempts failed.");
+      }
+    }
+  }
+  return null;
+};
+
+export { connectDatabase };

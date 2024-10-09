@@ -1,4 +1,4 @@
-import { IDemo } from "@interfaces";
+import { IDemo } from "../interfaces";
 import {
   Entity,
   PrimaryGeneratedColumn,
