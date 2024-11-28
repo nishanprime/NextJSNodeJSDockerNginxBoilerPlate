@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 import { Request, Response } from "express";
 
-import { errorHandler, sendSuccess } from "@utils";
+import { errorHandler, sendSuccess } from "../utils";
 
 export const DemoController = async (req: Request, res: Response) => {
   const { body } = req;

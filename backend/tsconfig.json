@@ -1,8 +1,6 @@
 {
-  "ts-node": {
-    "require": ["tsconfig-paths/register"]
-  },
   "compilerOptions": {
+    "plugins": [{ "transform": "typescript-transform-paths" }],
     "lib": ["es5", "es6", "ES2021.String", "DOM"],
     "target": "es6",
     "module": "commonjs",
@@ -15,17 +13,9 @@
     "noImplicitReturns": true,
     "rootDir": ".",
     "outDir": "./build",
-    "baseUrl": ".",
-    "paths": {
-      "@entity": ["./src/entity/index.ts"],
-      "@interfaces": ["./src/interfaces/index.ts"],
-      "@middlewares/*": ["./src/middlewares/*"],
-      "@routes": ["./src/routes/index.ts"],
-      "@controllers/*": ["./src/controllers/*"],
-      "@utils": ["./src/utils/index.ts"],
-      "@services": ["./src/services/index.ts"],
-      "@config": ["./src/bootstrap/config.ts"],
-      "@subscribers": ["./src/subscribers/index.ts"]
-    }
+    "jsx": "react-jsx"
+  },
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
   }
 }
