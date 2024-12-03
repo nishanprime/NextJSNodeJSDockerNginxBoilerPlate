@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -14,8 +15,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "BoilerPlate Frontend By CloudQuish",
-  description: "Boilerplate for Next.js with TypeScript, Tailwind CSS, and ShadCN",
+  title: "Welcome",
+  description: "Build with using Nextjs, ReactFlow and Shadcn/ui + tailwind",
 };
 
 export default function RootLayout({
@@ -29,6 +30,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <Toaster />
       </body>
     </html>
   );
