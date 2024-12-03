@@ -76,3 +76,50 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.flex > .property-card {
+  transition: all 0.5s ease-in-out;
+}
+
+.property-card.is-active {
+  @apply flex-1 sm:flex-[3];
+
+  /* flex: 3; */
+  .sm\:opacity-50,
+  .sm\:opacity-0 {
+    opacity: 1;
+  }
+  .sm\:opacity-70 {
+    opacity: 0.4;
+  }
+
+  .line-clamp-1 {
+    @apply line-clamp-none;
+  }
+  .max-h-16 {
+    @apply max-h-max;
+  }
+}
+
+.property-card:not(.is-active):not(:hover) {
+  flex: 1;
+}
+.custom-scrollbar::-webkit-scrollbar {
+  width: 20px;
+  height: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #fff;
+  background-clip: content-box;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #ffffffbe;
+  cursor: grabbing;
+}
+
+.hero-section {
+  @apply bg-[url('/static/hero-full.png')] bg-fixed md:bg-scroll lg:bg-[url('/static/luxury-small-summer-cottage.png')];
+}
