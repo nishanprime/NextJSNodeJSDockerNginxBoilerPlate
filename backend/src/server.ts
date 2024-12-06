@@ -27,12 +27,12 @@ const getApp = async () => {
       // this function would get req.body in raw format
       // this is usally essential for webhooks that require raw body to validate the request
       // for example stripe webhooks
-    }
+    },
   );
   app.use(express.json({ limit: "10mb" }));
-  const response = await connectDatabase();
+  await connectDatabase();
 
-  app.use("/api", baseRouter(response));
+  // app.use("/api", baseRouter(response));
 
   return app;
 };

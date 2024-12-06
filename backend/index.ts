@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 
-import getApp from "./src/server"
+import getApp from "./src/server";
 
 const port = process.env.PORT || 8000;
 
@@ -10,7 +10,7 @@ async function startApp() {
 
   app.listen(port, () => {
     console.log(
-      `API SERVER RUNNING ON PORT: ${port} and worker id at ${process.pid}`
+      `API SERVER RUNNING ON PORT: ${port} and worker id at ${process.pid}`,
     );
   });
 }
