@@ -5,6 +5,7 @@
     "cloudquish-scaffold": "./install.js"
   },
   "dependencies": {
+    "express-async-handler": "^1.2.0",
     "fs-extra": "^11.2.0"
   }
 }

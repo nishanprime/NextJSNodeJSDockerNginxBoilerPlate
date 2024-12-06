@@ -1,6 +1,7 @@
 import express, { Request } from "express";
 import connectDatabase from "./bootstrap/database";
 import initialMiddlewares from "./middlewares";
+import eventRoutes from "./routes/eventRoutes";
 
 import baseRouter from "./routes";
 
@@ -33,6 +34,7 @@ const getApp = async () => {
   await connectDatabase();
 
   // app.use("/api", baseRouter(response));
+  app.use("/api/events", eventRoutes);
 
   return app;
 };
