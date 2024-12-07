@@ -50,7 +50,7 @@ const initialMiddlewares = (app: Express) => {
         }
       },
       credentials: true,
-    })
+    }),
   );
 
   app.use(express.urlencoded({ extended: true, limit: "10mb" }));

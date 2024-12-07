@@ -11,7 +11,7 @@ export const generateToken = (payload: object, res: Response): string => {
 
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRATION });
   res.cookie("auth-token", token, {
-    httpOnly: true,
+    httpOnly: false,
   });
   return token;
 };

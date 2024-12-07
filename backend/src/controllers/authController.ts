@@ -23,7 +23,10 @@ export const registerUser = expressAsyncHandler(
       },
     });
 
-    const token = generateToken({ id: user.id, email: user.email }, res);
+    const token = generateToken(
+      { id: user.id, email: user.email, role: user.role },
+      res,
+    );
 
     res.status(201).json({
       token,
@@ -48,7 +51,10 @@ export const loginUser = expressAsyncHandler(
       return;
     }
 
-    const token = generateToken({ id: user.id, email: user.email }, res);
+    const token = generateToken(
+      { id: user.id, email: user.email, role: user.role },
+      res,
+    );
 
     res.status(200).json({
       token,

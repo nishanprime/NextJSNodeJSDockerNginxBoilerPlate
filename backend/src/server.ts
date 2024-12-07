@@ -4,6 +4,7 @@ import initialMiddlewares from "./middlewares";
 import eventRoutes from "./routes/eventRoutes";
 import authRoutes from "./routes/authRoutes";
 import bookRoutes from "./routes/bookingRoute";
+import orderRoutes from "./routes/orderRoute";
 
 import baseRouter from "./routes";
 
@@ -18,20 +19,7 @@ declare global {
 const getApp = async () => {
   const app = express();
   await initialMiddlewares(app);
-  app.post(
-    "/api/webhook/<stripe>",
 
-    express.json({
-      verify: (req: Request, res, buf) => {
-        req.rawBody = buf.toString();
-      },
-    }),
-    (req, res) => {
-      // this function would get req.body in raw format
-      // this is usally essential for webhooks that require raw body to validate the request
-      // for example stripe webhooks
-    },
-  );
   app.use(express.json({ limit: "10mb" }));
   await connectDatabase();
 
@@ -39,6 +27,7 @@ const getApp = async () => {
   app.use("/api/auth", authRoutes);
   app.use("/api/events", eventRoutes);
   app.use("/api/events", bookRoutes);
+  app.use("/api/orders", orderRoutes);
 
   return app;
 };
